@@ -24,24 +24,37 @@ const ProfilePage = ({
 
   if (!user || !podcastsData) return <LoaderSpinner />;
 
+  const processedPodcastsData = {
+    ...podcastsData,
+    podcasts: podcastsData.podcasts.map(podcast => ({
+      ...podcast,
+      audioStorageId: podcast.audioStorageId ?? null,
+      imageStorageId: podcast.imageStorageId ?? null,
+      audioUrl: podcast.audioUrl ?? null,
+      imageUrl: podcast.imageUrl ?? null,
+    })),
+  };
+
   return (
     <section className="mt-9 flex flex-col">
       <h1 className="text-20 font-bold text-white-1 max-md:text-center">
         Podcaster Profile
       </h1>
+      
       <div className="mt-6 flex flex-col gap-6 max-md:items-center md:flex-row">
         <ProfileCard
-          podcastData={podcastsData!}
+          podcastData={processedPodcastsData}
           imageUrl={user?.imageUrl!}
           userFirstName={user?.name!}
         />
       </div>
+      
       <section className="mt-9 flex flex-col gap-5">
         <h1 className="text-20 font-bold text-white-1">All Podcasts</h1>
-        {podcastsData && podcastsData.podcasts.length > 0 ? (
+        {processedPodcastsData && processedPodcastsData.podcasts.length > 0 ? (
           <div className="podcast_grid">
-            {podcastsData?.podcasts
-              ?.slice(0, 4)
+            {processedPodcastsData.podcasts
+              .slice(0, 4)
               .map((podcast) => (
                 <PodcastCard
                   key={podcast._id}
