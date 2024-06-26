@@ -2,7 +2,6 @@ import { ConvexError, v } from "convex/values";
 
 import { mutation, query } from "./_generated/server";
 
-// create podcast mutation
 export const createPodcast = mutation({
   args: {
     audioStorageId: v.id("_storage"),
@@ -36,18 +35,18 @@ export const createPodcast = mutation({
     return await ctx.db.insert("podcasts", {
       audioStorageId: args.audioStorageId,
       user: user[0]._id,
+      author: user[0].name,
+      authorId: user[0].clerkId,
+      authorImageUrl: user[0].imageUrl,
       podcastTitle: args.podcastTitle,
       podcastDescription: args.podcastDescription,
       audioUrl: args.audioUrl,
       imageUrl: args.imageUrl,
       imageStorageId: args.imageStorageId,
-      author: user[0].name,
-      authorId: user[0].clerkId,
       voicePrompt: args.voicePrompt,
       imagePrompt: args.imagePrompt,
       voiceType: args.voiceType,
       views: args.views,
-      authorImageUrl: user[0].imageUrl,
       audioDuration: args.audioDuration,
     });
   },
