@@ -1,4 +1,5 @@
 "use client";
+
 import { useMutation } from "convex/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -12,18 +13,18 @@ import LoaderSpinner from "./LoaderSpinner";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 
-const PodcastDetailPlayer = ({
-  audioUrl,
+const PodcastDetailPlayer: React.FC<PodcastDetailPlayerProps> = ({
+  audioUrl = '', // Ensures a default value is provided
   podcastTitle,
   author,
-  imageUrl,
+  imageUrl = '', // Ensures a default value is provided
   podcastId,
   imageStorageId,
   audioStorageId,
   isOwner,
-  authorImageUrl,
+  authorImageUrl = '', // Ensures a default value is provided
   authorId,
-}: PodcastDetailPlayerProps) => {
+}) => {
   const router = useRouter();
   const { setAudio } = useAudio();
   const { toast } = useToast();
@@ -31,6 +32,11 @@ const PodcastDetailPlayer = ({
   const deletePodcast = useMutation(api.podcasts.deletePodcast);
 
   const handleDelete = async () => {
+    if (!imageStorageId || !audioStorageId) {
+      console.error("Storage IDs cannot be undefined");
+      return;
+    }
+
     try {
       await deletePodcast({ podcastId, imageStorageId, audioStorageId });
       toast({
@@ -47,6 +53,11 @@ const PodcastDetailPlayer = ({
   };
 
   const handlePlay = () => {
+    if (!imageUrl) {
+      console.error("Image URL cannot be undefined");
+      return;
+    }
+
     setAudio({
       title: podcastTitle,
       audioUrl,
