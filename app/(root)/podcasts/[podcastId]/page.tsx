@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import EmptyState from '@/components/EmptyState'
 import LoaderSpinner from '@/components/LoaderSpinner'
@@ -26,7 +26,7 @@ const PodcastDetails = ({ params: { podcastId } }: { params: { podcastId: Id<'po
     <section className="flex w-full flex-col">
       <header className="mt-9 flex items-center justify-between">
         <h1 className="text-20 font-bold text-white-1">
-          Currenty Playing
+          Currently Playing
         </h1>
         <figure className="flex gap-3">
           <Image
@@ -50,13 +50,17 @@ const PodcastDetails = ({ params: { podcastId } }: { params: { podcastId: Id<'po
       <div className="flex flex-col gap-8">
         <div className='flex flex-col gap-4'>
           <h1 className='text-18 font-bold text-white-1'>Transcription</h1>
+          
           <p className="text-16 font-medium text-white-2">{podcast?.voicePrompt}</p>
         </div>
+        
         <div className='flex flex-col gap-4'>
           <h1 className='text-18 font-bold text-white-1'>Thumbnail Prompt</h1>
+          
           <p className="text-16 font-medium text-white-2">{podcast?.imagePrompt}</p>
         </div>
       </div>
+      
       <section className="mt-8 flex flex-col gap-5">
         <h1 className="text-20 font-bold text-white-1">Similar Podcasts</h1>
 
